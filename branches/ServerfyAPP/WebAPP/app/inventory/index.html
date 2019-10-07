@@ -1,0 +1,70 @@
+<link href="app-content/inventory.css" rel="stylesheet" />
+
+<div id="pageContent">
+    <div id="pageTitle">
+        <h1>Store Inventory</h1>
+    </div>
+    <div id="pageBody">        
+        <div class="productList">
+            Products: 
+            <ul ng-repeat="(key,product) in vm.productList">              
+                <li id="p{{product.code}}" ng-click="vm.getProduct(product.code)" class="prodItem">
+                    <span class="prodCode">{{product.code}}</span> - <span class="prodInfo">{{product.type}}</span> by <span class="prodInfo">{{product.brand}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="productProperty">
+            <div class="form-group"> 
+                <button class="btn btn-success" ng-click="vm.newProduct()">New</button>
+                <button class="btn btn-primary" ng-click="vm.saveProduct()">Save</button>
+                <button class="btn btn-danger" ng-click="vm.deleteProduct()">Delete</button>
+            </div>
+            <div class="properties">
+                <div class="form-group">
+                    <label for="code">Code</label>
+                    <input type="text" id="code" class="form-control clear" required disabled/>
+                </div>
+                <div class="form-group">
+                    <label for="code">Entry Date</label>
+                    <input type="date" id="date" class="form-control clear" required/>
+                </div>
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <input type="text" id="type" class="form-control clear" required/>
+                </div>
+                <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <input type="text" id="brand" class="form-control clear" required/>
+                </div>
+                <div class="form-group">
+                    <label for="size">Size</label>
+                    <input type="text" id="size" class="form-control clear" required/>
+                </div>
+                <div class="form-group">
+                    <label for="color">Color</label>
+                    <input type="text" id="color" class="form-control clear" required/>
+                </div>
+                <div class="form-group">
+                    <label for="labelprice">Label Price</label>
+                    <input type="number" id="labelprice" class="form-control clear" required/>
+                </div>
+                <div class="form-group">
+                    <label for="pricepaid">Price Paid</label>
+                    <input type="number" id="pricepaid" class="form-control clear" ng-blur="vm.calcMargin()" required/>
+                </div>
+                <div class="form-group">
+                    <label for="marginprice">100% Margin Price</label>
+                    <input type="number" id="marginprice" class="form-control clear" disabled/>
+                </div>
+                <div class="form-group">
+                    <label for="suggestedprice">Suggested Price</label>
+                    <input type="number" id="suggestedprice" class="form-control clear" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="charac">Characteristics</label>
+                <textarea type="text" rows="7" cols="100" id="charac" class="form-control clear form-control-big" required></textarea>
+            </div>
+        </div>
+    </div>
+</div>
