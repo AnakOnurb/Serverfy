@@ -6,13 +6,21 @@
     <% } %>
     <form method="post">
         <div class="form-group">
-            <label for="firstName">First name</label>
-            <input type="text" name="firstName" id="firstName" class="form-control" value="<%= locals.firstName || '' %>" required />
+                <label for="telegramID">Telegram ID</label>
+                <input type="text" name="telegramID" id="telegramID" class="form-control" value="<%= locals.telegramID || '' %>" required />
         </div>
+        <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" name="firstName" id="firstName" class="form-control" value="<%= locals.firstName || '' %>" required />
+        </div>        
         <div class="form-group">
             <label for="lastName">Last name</label>
             <input type="text" name="lastName" id="lastName" class="form-control" value="<%= locals.lastName || '' %>" required />
         </div>
+        <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="form-control" value="<%= locals.email || '' %>" required />
+            </div>
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" class="form-control" value="<%= locals.username || '' %>" required />
@@ -22,8 +30,15 @@
             <input type="password" name="password" id="password" class="form-control" required />
         </div>
         <div class="form-group">
+                <label style="width: 100%;" for="permission">Permission</label>
+                <label style="width: 90%;" for="write">Write</label>
+                <input style="width: 5%; display: inline-block;" type="checkbox" name="write" id="write" class="form-control" value="<%= locals.write || '' %>" required />
+                <label style="width: 90%;" for="read">Read</label>
+                <input style="width: 5%; display: inline-block;" type="checkbox" name="read" id="read" class="form-control" value="<%= locals.read || '' %>" required />
+        </div>            
+        <div class="form-group">
             <button type="submit" class="btn btn-primary">Register</button>
-            <a href="/login" class="btn btn-link">Cancel</a>
+            <a href="/login" class="btn btn-primary" style="margin-top: 20px;">Cancel</a>
         </div>
     </form>
 </div>
