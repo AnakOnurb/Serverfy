@@ -18,12 +18,12 @@
                 controllerAs: 'vm',
                 data: { activeTab: 'home' }
             })
-            .state('inventory', {
-                url: '/inventory',
-                templateUrl: 'inventory/index.html',
-                controller: 'Inventory.IndexController',
+            .state('server', {
+                url: '/server',
+                templateUrl: 'server/index.html',
+                controller: 'Server.IndexController',
                 controllerAs: 'vm',
-                data: { activeTab: 'inventory' }
+                data: { activeTab: 'server' }
             })
             .state('account', {
                 url: '/account',

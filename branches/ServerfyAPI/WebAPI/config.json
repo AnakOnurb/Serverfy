@@ -1,4 +1,4 @@
 ﻿{
-    "connectionString": "mongodb://localhost:27017/meanstackinventory",
+    "connectionString": "mongodb://localhost:27017/serverfyDB",
     "secret": "API SECRET"
 }

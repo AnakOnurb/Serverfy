@@ -32,9 +32,9 @@
         <div class="form-group">
                 <label style="width: 100%;" for="permission">Permission</label>
                 <label style="width: 90%;" for="write">Write</label>
-                <input style="width: 5%; display: inline-block;" type="checkbox" name="write" id="write" class="form-control" value="<%= locals.write || '' %>" required />
+                <input style="width: 5%; display: inline-block;" type="checkbox" name="write" id="write" class="form-control" value="<%= 'true' || 'false' %>"/>
                 <label style="width: 90%;" for="read">Read</label>
-                <input style="width: 5%; display: inline-block;" type="checkbox" name="read" id="read" class="form-control" value="<%= locals.read || '' %>" required />
+                <input style="width: 5%; display: inline-block;" type="checkbox" name="read" id="read" class="form-control" value="<%= 'true' || 'false' %>"/>
         </div>            
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Register</button>
