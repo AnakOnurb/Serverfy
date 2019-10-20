@@ -60,14 +60,6 @@ footer{
     height: 100%;
 }
 
-#navLogo{
-    flex-basis: 20%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #navLinks{
     flex-basis:70%;
     height: 100%;
@@ -90,9 +82,8 @@ footer{
     width: auto;
 }
 
-.headerImage{
-    max-width: 90%;
-    height: auto;
+.headerImage{    
+    height: 60px;
 }
 
 

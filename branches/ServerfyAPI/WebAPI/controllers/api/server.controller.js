@@ -1,20 +1,20 @@
 var config = require('config.json');
 var express = require('express');
 var router = express.Router();
-var inventoryService = require('services/inventory.service');
+var serverService = require('services/server.service');
 
 // routes
-router.post('/addproduct', addProduct);
+router.post('/addserver', addServer);
 router.get('/search/:_name', searchName);
-router.get('/:_id', getProduct);
+router.get('/:_id', getServer);
 router.get('', getAll);
-router.put('/:_id', updateProduct);
-router.delete('/:_id', deleteProduct);
+router.put('/:_id', updateServer);
+router.delete('/:_id', deleteServer);
 
 module.exports = router;
 
-function addProduct(req, res) {
-    inventoryService.create(req.body)
+function addServer(req, res) {    
+    serverService.create(req.body)
         .then(function () {
             res.sendStatus(200);
         })
@@ -23,11 +23,11 @@ function addProduct(req, res) {
         });
 }
 
-function getProduct(req, res) {
-    inventoryService.getById(req.params._id)
-        .then(function (productObject) {
-            if (productObject) {
-                res.send(productObject);
+function getServer(req, res) {
+    serverService.getById(req.params._id)
+        .then(function (ServerObject) {
+            if (ServerObject) {
+                res.send(ServerObject);
             } else {
                 res.sendStatus(404);
             }
@@ -38,10 +38,10 @@ function getProduct(req, res) {
 }
 
 function getAll(req, res) {
-    inventoryService.getAll()
-        .then(function (productList) {
-            if (productList) {
-                res.send(productList);
+    serverService.getAll()
+        .then(function (ServerList) {            
+            if (ServerList) {
+                res.send(ServerList);
             } else {
                 res.sendStatus(404);
             }
@@ -51,8 +51,8 @@ function getAll(req, res) {
         });
 }
 
-function updateProduct(req, res) {
-    inventoryService.update(req.params._id, req.body)
+function updateServer(req, res) {
+    serverService.update(req.params._id, req.body)
         .then(function () {
             res.sendStatus(200);
         })
@@ -61,8 +61,8 @@ function updateProduct(req, res) {
         });
 }
 
-function deleteProduct(req, res) {
-    inventoryService.delete(req.params._id)
+function deleteServer(req, res) {
+    serverService.delete(req.params._id)
         .then(function () {
             res.sendStatus(200);
         })
@@ -72,10 +72,10 @@ function deleteProduct(req, res) {
 }
 
 function searchName(req, res) {
-    inventoryService.searchByName(req.params._name)
-        .then(function (productList) {
-            if (productList) {
-                res.send(productList);
+    serverService.searchByName(req.params._name)
+        .then(function (ServerList) {
+            if (ServerList) {
+                res.send(ServerList);
             } else {
                 res.sendStatus(404);
             }

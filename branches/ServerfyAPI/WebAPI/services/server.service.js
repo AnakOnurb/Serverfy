@@ -5,7 +5,7 @@ var bcrypt = require('bcryptjs');
 var Q = require('q');
 var mongo = require('mongoskin');
 var db = mongo.db(config.connectionString, { native_parser: true });
-db.bind('inventory');
+db.bind('server');
 
 var service = {};
 
@@ -21,12 +21,12 @@ module.exports = service;
 function getById(_id) {
     var deferred = Q.defer();
 
-    db.inventory.findById(_id, function (err, productObject) {
+    db.server.findById(_id, function (err, ServerObject) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
-        if (productObject) {
-            // return product
-            deferred.resolve(_.omit(productObject, 'hash'));
+        if (ServerObject) {
+            // return Server
+            deferred.resolve(_.omit(ServerObject, 'hash'));
         } else {
             // user not found
             deferred.resolve();
@@ -36,29 +36,28 @@ function getById(_id) {
     return deferred.promise;
 }
 
-function create(productObject) {
+function create(ServerObject) {
     var deferred = Q.defer();
     
-    // validation
-    db.inventory.findOne(
-        { code: productObject.code },
-        function (err, productObject) {
-            if (err) deferred.reject(err.name + ': ' + err.message);
-
-            if (productObject) {
-                // product id already exists
-                deferred.reject('Product Code "' + productObject.code + '" is already used');
+    // validation    
+    db.server.findOne(        
+        { code: ServerObject.ip },
+        function (err, ServerObject) {
+            if (err) deferred.reject(err.name + ': ' + err.message);            
+            if (ServerObject) {
+                // Server id already exists
+                deferred.reject('Server IP "' + ServerObject.ip + '" is already used');
             } else {
-                createProduct();
+                createServer();
             }
         });
 
-    function createProduct() {
+    function createServer() {
         // set user object to userParam without the cleartext password
-        var product = productObject;
+        var Server = ServerObject;
 
-        db.inventory.insert(
-            product,
+        db.server.insert(
+            Server,
             function (err, doc) {
                 if (err) deferred.reject(err.name + ': ' + err.message);
 
@@ -69,47 +68,40 @@ function create(productObject) {
     return deferred.promise;
 }
 
-function update(_id, productObject) {
+function update(_id, ServerObject) {
     var deferred = Q.defer();
 
     // validation
-    db.inventory.findById(_id, function (err, product) {
+    db.server.findById(_id, function (err, Server) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
-        if (product.code !== productObject.code) {
-            // product id has changed so check if the new code is already taken
-            db.inventory.findOne(
-                { code: productObject.code },
-                function (err, productObject) {
+        if (Server.code !== ServerObject.code) {
+            // Server id has changed so check if the new code is already taken
+            db.server.findOne(
+                { code: ServerObject.code },
+                function (err, ServerObject) {
                     if (err) deferred.reject(err.name + ': ' + err.message);
 
-                    if (productObject) {
-                        // product already exists
-                        deferred.reject('Product Code "' + req.body.code + '" is already taken')
+                    if (ServerObject) {
+                        // Server already exists
+                        deferred.reject('Server Code "' + req.body.code + '" is already taken')
                     } else {
-                        updateProduct();
+                        updateServer();
                     }
                 });
         } else {
-            updateProduct();
+            updateServer();
         }
     });
 
-    function updateProduct() {
+    function updateServer() {
         // fields to update
         var set = {
-            date: productObject.date,
-            type: productObject.type,
-            brand: productObject.brand,
-            charac: productObject.charac,
-            size: productObject.size,
-            color: productObject.color,
-            labelprice: productObject.labelprice,
-            pricepaid: productObject.pricepaid,
-            suggestedprice: productObject.suggestedprice
+            ip: ServerObject.ip,
+            host: ServerObject.host            
         };
 
-        db.inventory.update(
+        db.server.update(
             { _id: mongo.helper.toObjectID(_id) },
             { $set: set },
             function (err, doc) {
@@ -125,7 +117,7 @@ function update(_id, productObject) {
 function _delete(_id) {
     var deferred = Q.defer();
 
-    db.inventory.remove(
+    db.server.remove(
         { _id: mongo.helper.toObjectID(_id) },
         function (err) {
             if (err) deferred.reject(err.name + ': ' + err.message);
@@ -139,13 +131,13 @@ function _delete(_id) {
 function searchByName(name) {
     var deferred = Q.defer();
 
-    db.inventory.findOne(
+    db.server.findOne(
         { name: name },
-        function (err, productList) {
+        function (err, ServerList) {
             if (err) deferred.reject(err.name + ': ' + err.message);
 
-            if (productList) {
-                deferred.resolve(_.omit(productObject, 'hash'));
+            if (ServerList) {
+                deferred.resolve(_.omit(ServerObject, 'hash'));
             } else {
                 deferred.reject('The search returned no results');
             }
@@ -157,12 +149,11 @@ function searchByName(name) {
 function getAll() {
     var deferred = Q.defer();
 
-    db.inventory.find({}).toArray(function (err, productList) {
-        if (err) deferred.reject(err.name + ': ' + err.message);
-
-        if (productList) {
-            // return product
-            deferred.resolve(_.omit(productList, 'hash'));
+    db.server.find({}).toArray(function (err, ServerList) {
+        if (err) deferred.reject(err.name + ': ' + err.message);        
+        if (ServerList) {
+            // return Server                      
+            deferred.resolve(_.omit(ServerList, 'hash'));
         } else {
             // user not found
             deferred.resolve();

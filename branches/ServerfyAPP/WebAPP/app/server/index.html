@@ -7,9 +7,9 @@
     <div id="pageBody">        
         <div class="serverList">
             <label for="host">Servers list:</label>             
-            <ul ng-repeat="(key,server) in vm.serverList">              
-                <li id="p{{server.ip}}" ng-click="vm.getServer(server.ip)" class="serverItem">
-                    <span class="serverIp">{{server.ip}}</span> - <span class="serverInfo">{{server.host}}</span>
+            <ul ng-repeat="(key,server) in vm.ServerList">              
+                <li id="p{{server.id}}" ng-click="vm.getServer(server._id)" class="serverItem">
+                    <span class="serverInfo">{{server.ip}}</span> - <span class="serverHost">{{server.host}}</span>
                 </li>
             </ul>
         </div>        

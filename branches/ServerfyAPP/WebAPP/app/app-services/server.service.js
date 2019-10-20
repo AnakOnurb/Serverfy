@@ -3,10 +3,10 @@
 
     angular
         .module('app')
-        .factory('InventoryService', Service);
+        .factory('ServerService', Service);
 
     function Service($http, $q) {
-        var apiURL = "http://localhost:9050/api/inventory";
+        var apiURL = "http://localhost:9050/api/Server";
         var service = {};
 
         service.GetToken = GetToken;
@@ -35,7 +35,7 @@
             return $http.get(apiURL + '/' + userId).then(handleSuccess, handleError);
         }
 
-        function GetAll() {
+        function GetAll() {            
             return $http.get(apiURL + '/').then(handleSuccess, handleError);
         }
 
@@ -43,16 +43,16 @@
             return $http.getapiURL + (apiURL + '/' + _id).then(handleSuccess, handleError);
         }
 
-        function SearchByName(productName) {
-            return $http.get(apiURL + '/' + productName).then(handleSuccess, handleError);
+        function SearchByName(serverName) {
+            return $http.get(apiURL + '/' + serverName).then(handleSuccess, handleError);
         }
 
-        function Create(product) {
-            return $http.post(apiURL + '/addproduct', product).then(handleSuccess, handleError);
+        function Create(server) {
+            return $http.post(apiURL + '/addserver', server).then(handleSuccess, handleError);
         }
 
-        function Update(product) {
-            return $http.put(apiURL + '/' + product._id, product).then(handleSuccess, handleError);
+        function Update(server) {
+            return $http.put(apiURL + '/' + server._id, server).then(handleSuccess, handleError);
         }
 
         function Delete(_id) {
@@ -61,11 +61,11 @@
 
         // private functions
 
-        function handleSuccess(res) {
+        function handleSuccess(res) {            
             return res.data;
         }
 
-        function handleError(res) {
+        function handleError(res) {            
             return $q.reject(res.data);
         }
         

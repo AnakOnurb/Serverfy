@@ -4,7 +4,7 @@ var router = express.Router();
 // use session auth to secure the angular app files
 router.use('/', function (req, res, next) {
     var autenticacaoValida = (req.session.token !== undefined);
-    var caminhosAutorizados = (req.path === '/assets/img/gatinho.jpg') || (req.path === '/login');
+    var caminhosAutorizados = (req.path === '/assets/img/logo.png') || (req.path === '/login');
     if ((autenticacaoValida) || (caminhosAutorizados))
         next();
     else

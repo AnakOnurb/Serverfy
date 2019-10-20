@@ -3,18 +3,18 @@
 
     angular
         .module('app')
-        .controller('Inventory.IndexController', Controller);
+        .controller('Server.IndexController', Controller);
 
-    function Controller($window, InventoryService, FlashService) {
+    function Controller($window, ServerService, FlashService) {
         var vm = this;
         
-        vm.productList = null;
-        vm.product = null;
+        vm.ServerList = null;
+        vm.Server = null;
 
-        vm.newProduct = newProduct;
-        vm.saveProduct = saveProduct;
-        vm.deleteProduct = deleteProduct;
-        vm.getProduct = getProduct;
+        vm.newServer = newServer;
+        vm.saveServer = saveServer;
+        vm.deleteServer = deleteServer;
+        vm.getServer = getServer;
         vm.calcMargin = calcMargin;
 
         var creating = false;
@@ -22,26 +22,26 @@
         getAll();
 
         function getAll() 
-        {
-            InventoryService.GetAll().then(function (productList) {
-                vm.productList = productList;
+        {            
+            ServerService.GetAll().then(function (ServerList) {                
+                vm.ServerList = ServerList;                          
             });            
         }
 
-        function newProduct() 
-        {
+        function newServer() 
+        {            
             creating = true;
             clearElements();
-            document.getElementById('code').value = getLast();
+            //document.getElementById('code').value = getLast();            
         }
 
-        function createProduct() 
+        function createServer() 
         {
-            vm.product = null;
-            fillProduct(false);
-            InventoryService.Create(vm.product)
+            vm.Server = null;
+            fillServer(false);
+            ServerService.Create(vm.Server)
                 .then(function () {
-                    FlashService.Success('Product created');
+                    FlashService.Success('Server created');
                     getAll();
                 })
                 .catch(function (error) {
@@ -49,19 +49,19 @@
                 });
         }
 
-        function saveProduct() 
-        {
+        function saveServer() 
+        {            
             if(creating) //insert
             {
-                createProduct();
+                createServer();
                 creating = false;
             }
             else //update
-            {
-                fillProduct(true);
-                InventoryService.Update(vm.product)
+            {                
+                fillServer(true);
+                ServerService.Update(vm.Server)
                     .then(function () {
-                        FlashService.Success('Product updated');
+                        FlashService.Success('Server updated');
                         getAll();
                     })
                     .catch(function (error) {
@@ -70,23 +70,23 @@
             }
         }
 
-        function deleteProduct() 
+        function deleteServer() 
         {
             if(creating) //erase info
             {
-                vm.product = null;
+                vm.Server = null;
                 clearElements();
                 creating = false;
             }
             else //delete
             {
-                fillProduct(true);
-                InventoryService.Delete(vm.product._id)
+                fillServer(true);
+                ServerService.Delete(vm.Server._id)
                     .then(function () {
-                        vm.product = null;
+                        vm.Server = null;
                         getAll();
                         clearElements();
-                        FlashService.Success('Product deleted');
+                        FlashService.Success('Server deleted');
                     })
                     .catch(function (error) {
                         FlashService.Error(error);
@@ -103,19 +103,19 @@
             }
         }
 
-        function getLast()
+        /*function getLast()
         {                    
-            return (Number(vm.productList[Object.keys(vm.productList).length - 1].code) + 1);
-        }
+            return (Number(vm.ServerList[Object.keys(vm.ServerList).length - 1].code) + 1);
+        }*/
 
-        function getProduct(productCode)
-        {        
-            for(var key in vm.productList)
+        function getServer(ServerCode)
+        {            
+            for(var key in vm.ServerList)
             {
-                var product = vm.productList[key];
-                if(Number(product.code) == Number(productCode))
-                {
-                    vm.product = product;
+                var Server = vm.ServerList[key];                
+                if(Server._id == ServerCode)
+                {                    
+                    vm.Server = Server;
                     fillElements();
                     creating = false;                    
                 }
@@ -124,51 +124,26 @@
 
         function fillElements()
         {
-            document.getElementById('code').value = vm.product.code;
-            document.getElementById('date').value = vm.product.date;
-            document.getElementById('type').value = vm.product.type;
-            document.getElementById('brand').value = vm.product.brand;
-            document.getElementById('charac').value = vm.product.charac;
-            document.getElementById('size').value = vm.product.size;
-            document.getElementById('color').value = vm.product.color;
-            document.getElementById('labelprice').value = vm.product.labelprice;
-            document.getElementById('pricepaid').value = vm.product.pricepaid;
-            document.getElementById('suggestedprice').value = vm.product.suggestedprice;
-            document.getElementById('marginprice').value = Number(vm.product.pricepaid) * 2;
+            document.getElementById('ip').value = vm.Server.ip;
+            document.getElementById('host').value = vm.Server.host;            
         }
 
-        function fillProduct(withId)
+        function fillServer(withId)
         {
             if(!withId)
             {
-                vm.product = {
-                    code: document.getElementById('code').value,
-                    date: document.getElementById('date').value,
-                    type: document.getElementById('type').value,
-                    brand: document.getElementById('brand').value,
-                    charac: document.getElementById('charac').value,
-                    size: document.getElementById('size').value,
-                    color: document.getElementById('color').value,
-                    labelprice: document.getElementById('labelprice').value,
-                    pricepaid: document.getElementById('pricepaid').value,
-                    suggestedprice: document.getElementById('suggestedprice').value
+                vm.Server = {
+                    ip: document.getElementById('ip').value,
+                    host: document.getElementById('host').value
                 };
             }
             else
             {
-                var id = vm.product._id;
-                vm.product = {
+                var id = vm.Server._id;
+                vm.Server = {
                     _id: id,
-                    code: document.getElementById('code').value,
-                    date: document.getElementById('date').value,
-                    type: document.getElementById('type').value,
-                    brand: document.getElementById('brand').value,
-                    charac: document.getElementById('charac').value,
-                    size: document.getElementById('size').value,
-                    color: document.getElementById('color').value,
-                    labelprice: document.getElementById('labelprice').value,
-                    pricepaid: document.getElementById('pricepaid').value,
-                    suggestedprice: document.getElementById('suggestedprice').value
+                    ip: document.getElementById('ip').value,
+                    host: document.getElementById('host').value
                 };
             }
         }
