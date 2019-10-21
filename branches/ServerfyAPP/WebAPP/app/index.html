@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>MEAN Stack Inventory</title>
+
+        <link href="/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="app-content/app.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+            <nav id="headerNav">
+                <div id="navLogo">
+                    <img src="app-content/src/logoSemSombra.png" class="headerImage">
+                </div>
+                <div id="navLinks">
+                    <div class="navButton" ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Dashboard</a></div>
+                    <div class="navButton" ng-class="{active: activeTab === 'server'}"><a ui-sref="server">Server</a></div>                   
+                    <div class="navButton" ng-class="{active: activeTab === 'users'}"><a ui-sref="users">Employees</a></div>
+                </div>
+                <div id="navAccount">
+                    <div class="dropdownContainer">
+                        <img src="app-content/src/user.png" class="accountImage"/>
+                        <div class="dropdownContent">
+                            <span ng-class="{active: activeTab === 'account'}"><a ui-sref="account">My Account</a></span>
+                            <span><a href="/login" target="_self">Logout</a></span>
+                        </div>
+                    </div>
+                </div>                
+            </nav>        
+        </header>
+
+        <!-- main -->
+        <main>
+            <div id="flashmessage" class="flash-message" ng-if="flash">
+                <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+            </div>
+            <section ui-view>                
+            </section>        
+        </main>
+
+        <!-- footer -->
+        <footer>
+            
+        </footer>
+
+        <!-- external scripts -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+
+        <!-- application scripts -->
+        <script src="app.js"></script>
+        <script src="app-services/user.service.js"></script>
+        <script src="app-services/server.service.js"></script>
+        <script src="app-services/flash.service.js"></script>
+        <script src="home/index.controller.js"></script>
+        <script src="account/index.controller.js"></script>
+        <script src="server/index.controller.js"></script>
+        <script src="users/index.controller.js"></script>
+    </body>
+</html>
+
+<!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div> -->
