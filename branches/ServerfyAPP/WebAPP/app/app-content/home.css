@@ -18,8 +18,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content:center;
-    align-items: center;
+    justify-content:center;    
 }
 
 .form-control{
@@ -45,3 +44,26 @@
     max-width: 100%;
     height: auto;
 }
+
+.welcome{
+    font-size: 18px;
+    margin: 1px;
+    color: #cecece;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  
+  th {
+    background-color: #04b5bc;
+    color: white;
+  }
