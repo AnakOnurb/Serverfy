@@ -1,0 +1,4 @@
+﻿{
+    "connectionString": "mongodb://localhost:27017/serverfyDB",
+    "secret": "API SECRET"
+}
