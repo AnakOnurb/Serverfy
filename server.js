@@ -9,7 +9,7 @@ var app = express();
 var session = require('express-session');
 // bibloteca que ajuda no parse de mensagens requisitadas que contém JSON
 var bodyParser = require('body-parser');
- 
+
 // carrega as configurações mapeadas no json
 var config = require('config.json');
 // faz a leitura da porta que será utilizada para o app

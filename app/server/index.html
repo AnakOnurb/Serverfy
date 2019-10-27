@@ -5,14 +5,18 @@
         <h1>Server</h1>
     </div>
     <div id="pageBody">        
-        <div class="serverList">
-            <label for="host">Servers list:</label>             
-            <ul ng-repeat="(key,server) in vm.ServerList">              
-                <li id="p{{server.id}}" ng-click="vm.getServer(server._id)" class="serverItem">
-                    <span class="serverInfo">{{server.ip}}</span> - <span class="serverHost">{{server.host}}</span>
-                </li>
-            </ul>
-        </div>        
+        <table>
+                <tr>
+                    <th></th>
+                    <th>IP</th>
+                    <th>Host Name</th>                    
+                </tr>
+                <tr ng-repeat="(key,server) in vm.ServerList" id="p{{server.id}}" ng-click="vm.getServer(server._id)">
+                    <td><i class="fas fa-check"></i></td>
+                    <td>{{server.ip}}</td>
+                    <td>{{server.host}}</td>                    
+                </tr>
+        </table>       
         <div class="serverProperty"> 
             <div class="btn-div"> 
                     <button class="btn btn-primary" ng-click="vm.newServer()">New</button>
