@@ -1,4 +1,4 @@
 ﻿{
-    "connectionString": "mongodb+srv://serverfyAdmin:1234@serverfy-it25m.azure.mongodb.net/test?retryWrites=true&w=majority",
+    "connectionString": "mongodb://serverfyAdmin:1234@serverfy-shard-00-00-it25m.azure.mongodb.net:27017,serverfy-shard-00-01-it25m.azure.mongodb.net:27017,serverfy-shard-00-02-it25m.azure.mongodb.net:27017/serverfyDB?ssl=true&replicaSet=serverfy-shard-0&authSource=admin&retryWrites=true&w=majority",
     "secret": "API SECRET"
 }
