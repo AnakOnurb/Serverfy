@@ -1,4 +1,4 @@
 ﻿{
-    "connectionString": "mongodb://localhost:27017/serverfyDB",
+    "connectionString": "mongodb+srv://serverfyAdmin:admin@serverfy-it25m.azure.mongodb.net/serverfyDB?retryWrites=true&w=majority",
     "secret": "API SECRET"
 }
