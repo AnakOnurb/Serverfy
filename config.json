@@ -1,4 +1,4 @@
 ﻿{
-    "apiUrl": "https://serverfyapi.azurewebsites.net/",
+    "apiUrl": "https://serverfyapi.azurewebsites.net:9050/api",
     "secret": "APP SECRET"
 }
