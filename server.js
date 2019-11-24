@@ -1,5 +1,5 @@
 ﻿// biblioteca js que faz o mapeamento das pastas em função do server.js
-require('rootpath')(); 
+require('rootpath')();
 // Inicialização do express. Notem que fiz aqui uma modificação do projeto original. criei duas variáveis de express
 // separando de vez api e app. Em um desenvolvimento mais sofisticado, onde você deseje fazer balanceamento de carga
 // separadamente para cada ponto da solução, você teria que criar dois server.js e quebrar de vez a aplicação
@@ -8,7 +8,7 @@ var api = express();
 var cors = require('cors');
 // bibloteca que ajuda no parse de mensagens requisitadas que contém JSON
 var bodyParser = require('body-parser');
-// essa biblioteca será utilizada na API para fazer autenticaçao seguindo o método JWT. 
+// essa biblioteca será utilizada na API para fazer autenticaçao seguindo o método JWT.
 // Se quiser estudar um pouco mais sobre JWT, pesquise aqui
 // https://jwt.io/introduction/
 var expressJwt = require('express-jwt');
@@ -19,7 +19,7 @@ var apiPort = process.env.PORT || 9050;
 var ambiente = process.env.NODE_ENV || 'development';
 
 // separação da api
-// uso do JWT para garantir a segurança da API e o uso de json no body para transferir dados de uma camada para a outra 
+// uso do JWT para garantir a segurança da API e o uso de json no body para transferir dados de uma camada para a outra
 api.use(bodyParser.urlencoded({ extended: false }));
 api.use(bodyParser.json());
 
@@ -38,7 +38,7 @@ api.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/user
 // A cada require, o js é inicializado
 api.use('/api/users', require('./controllers/api/users.controller'));
 api.use('/api/server', require('./controllers/api/server.controller'));
-api.use('/api/command', require('./controllers/api/command.controller')); 
+api.use('/api/command', require('./controllers/api/command.controller'));
 
 // start server API
 var serverAPI = api.listen(apiPort, function () {

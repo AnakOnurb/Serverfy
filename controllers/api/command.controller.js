@@ -1,16 +1,16 @@
 var config = require('config.json');
 var express = require('express');
 var router = express.Router();
-var serverService = require('services/server.service');
+var commandService = require('services/command.service');
 
 // routes
 router.get('/version', getVersion);
 
 module.exports = router;
 
-function getServer(req, res) {
+function getVersion(req, res) {
     commandService.getVersion()
-        .then(function (Version) {            
+        .then(function (Version) {
             if (Version) {
                 res.send(Version);
             } else {
