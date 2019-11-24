@@ -29,4 +29,5 @@
                 vm.ServerList = ServerList;
             });
         }
+    }
 })();
