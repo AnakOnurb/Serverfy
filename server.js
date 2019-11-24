@@ -38,7 +38,7 @@ api.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/user
 // A cada require, o js é inicializado
 api.use('/api/users', require('./controllers/api/users.controller'));
 api.use('/api/server', require('./controllers/api/server.controller'));
-api.use('/api/command', require('./controllers/api/command.controller'));
+api.use('/api/command', require('./controllers/api/command.controller')); 
 
 // start server API
 var serverAPI = api.listen(apiPort, function () {
