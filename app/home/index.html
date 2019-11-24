@@ -5,18 +5,18 @@
     <div id="pageTitle">
         <h1>Dashboard</h1>
     </div>
-    <div id="pageBody">    
+    <div id="pageBody">
             <table>
                     <tr>
                       <th>IP</th>
                       <th>Host Name</th>
                       <th>Server Status</th>
                     </tr>
-                    <tr ng-repeat="(key,server) in vm.ServerList" id="p{{server.id}}" ng-click="vm.getServer(server._id)">
+                    <tr ng-repeat="(key,server) in vm.ServerList" id="p{{server.id}}">
                       <td>{{server.ip}}</td>
                       <td>{{server.host}}</td>
                       <td>{{server.status}}</td>
                     </tr>
-            </table>                       
+            </table>
     </div>
 </div>

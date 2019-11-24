@@ -6,7 +6,7 @@
         .factory('ServerService', Service);
 
     function Service($http, $q) {
-        var apiURL = "http://localhost:9050/api/Server";
+        var apiURL = "http://localhost:9050/api/server";
         var service = {};
 
         service.GetToken = GetToken;
@@ -18,7 +18,7 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
-        
+
         return service;
 
         function GetUserId() {
@@ -35,7 +35,7 @@
             return $http.get(apiURL + '/' + userId).then(handleSuccess, handleError);
         }
 
-        function GetAll() {            
+        function GetAll() {
             return $http.get(apiURL + '/').then(handleSuccess, handleError);
         }
 
@@ -61,14 +61,14 @@
 
         // private functions
 
-        function handleSuccess(res) {            
+        function handleSuccess(res) {
             return res.data;
         }
 
-        function handleError(res) {            
+        function handleError(res) {
             return $q.reject(res.data);
         }
-        
+
     }
 
 })();

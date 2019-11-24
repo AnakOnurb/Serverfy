@@ -11,13 +11,7 @@
 
         service.GetToken = GetToken;
         service.GetUserId = GetUserId;
-        service.GetCurrent = GetCurrent;
-        service.GetAll = GetAll;
-        service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
-        service.Create = Create;
-        service.Update = Update;
-        service.Delete = Delete;
+        service.GetVersion = GetVersion;
 
         return service;
 
