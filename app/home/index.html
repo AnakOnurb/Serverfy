@@ -1,0 +1,22 @@
+﻿<link href="app-content/home.css" rel="stylesheet" />
+
+<div id="pageContent">
+    <h1 class="welcome">Welcome {{vm.user.firstName}}</h1>
+    <div id="pageTitle">
+        <h1>Dashboard</h1>
+    </div>
+    <div id="pageBody">    
+            <table>
+                    <tr>
+                      <th>IP</th>
+                      <th>Host Name</th>
+                      <th>Server Status</th>
+                    </tr>
+                    <tr ng-repeat="(key,server) in vm.ServerList" id="p{{server.id}}" ng-click="vm.getServer(server._id)">
+                      <td>{{server.ip}}</td>
+                      <td>{{server.host}}</td>
+                      <td>{{server.status}}</td>
+                    </tr>
+            </table>                       
+    </div>
+</div>
