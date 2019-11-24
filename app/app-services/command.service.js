@@ -6,7 +6,7 @@
         .factory('CommandService', Service);
 
     function Service($http, $q) {
-        var apiURL = "http://localhost:9050/api/command";
+        var apiURL = "https://serverfyapi.azurewebsites.net/api/command";
         var service = {};
 
         service.GetToken = GetToken;
