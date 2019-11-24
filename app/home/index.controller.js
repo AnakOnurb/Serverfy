@@ -9,6 +9,7 @@
         var vm = this;
 
         vm.user = null;
+        vm.ServerList = null;
 
         initUser();
 

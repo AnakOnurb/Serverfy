@@ -4,25 +4,25 @@
     <div id="pageTitle">
         <h1>Server</h1>
     </div>
-    <div id="pageBody">        
+    <div id="pageBody">
         <table>
                 <tr>
                     <th></th>
                     <th>IP</th>
-                    <th>Host Name</th>                    
+                    <th>Host Name</th>
                 </tr>
                 <tr ng-repeat="(key,server) in vm.ServerList" id="p{{server.id}}" ng-click="vm.getServer(server._id)">
                     <td><i class="fas fa-check"></i></td>
                     <td>{{server.ip}}</td>
-                    <td>{{server.host}}</td>                    
+                    <td>{{server.host}}</td>
                 </tr>
-        </table>       
-        <div class="serverProperty"> 
-            <div class="btn-div"> 
+        </table>
+        <div class="serverProperty">
+            <div class="btn-div">
                     <button class="btn btn-primary" ng-click="vm.newServer()">New</button>
                     <button class="btn btn-primary" ng-click="vm.saveServer()">Save</button>
                     <button class="btn btn-primary" ng-click="vm.deleteServer()">Delete</button>
-            </div>           
+            </div>
             <div class="properties">
                 <div class="form-group">
                     <label for="ip">IP</label>
@@ -31,16 +31,8 @@
                 <div class="form-group">
                     <label for="host">Host Name</label>
                     <input type="text" id="host" class="form-control clear" required/>
-                </div>     
-                <div class="serverList">
-                        <label for="host">User-Server relationship list:</label>             
-                        <ul ng-repeat="(key,user) in vm.userList">              
-                            <li id="p{{user.id}}" ng-click="vm.getUser(user.id)" class="userItem">
-                                <span class="userId">{{user.id}}</span> - <span class="userInfo">{{user.name}}</span>
-                            </li>
-                        </ul>
-                    </div>              
-            </div>            
-        </div>        
-    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

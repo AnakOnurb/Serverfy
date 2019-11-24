@@ -1,10 +1,44 @@
-<link href="app-content/users.css" rel="stylesheet" />
-
-<div id="pageContent">
-    <div id="pageTitle">
-        <h1>Employees</h1>
-    </div>
-    <div id="pageBody">   
-        <h1></h1>
-    </div>
+<div class="form-container" style="display:flex; justify-content:space-evenly; padding:20px;">
+    <h2>Users</h2>
+    <tr ng-repeat="(key,user) in vm.UserList" id="p{{user.id}}" ng-click="vm.getServer(user._id)">
+        <td><i class="fas fa-check"></i></td>
+        <td>{{user.Name}}</td>
+    </tr>
+    <form method="post">
+        <div class="form-group">
+                <label for="telegramID">Telegram ID</label>
+                <input type="text" name="telegramID" id="telegramID" class="form-control" required />
+        </div>
+        <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" name="firstName" id="firstName" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input type="text" name="lastName" id="lastName" class="form-control" required />
+        </div>
+        <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="form-control" required />
+            </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" required />
+        </div>
+        <div class="form-group">
+                <label style="width: 100%;" for="permission">Permission</label>
+                <label style="width: 90%;" for="write">Write</label>
+                <input style="width: 5%; display: inline-block;" type="checkbox" name="write" id="write" class="form-control"/>
+                <label style="width: 90%;" for="read">Read</label>
+                <input style="width: 5%; display: inline-block;" type="checkbox" name="read" id="read" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a href="/login" class="btn btn-primary">Cancel</a>
+        </div>
+    </form>
 </div>

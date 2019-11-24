@@ -7,7 +7,7 @@
 
     function Controller($window, ServerService, FlashService) {
         var vm = this;
-        
+
         vm.ServerList = null;
         vm.Server = null;
 
@@ -18,24 +18,24 @@
         vm.calcMargin = calcMargin;
 
         var creating = false;
-    
+
         getAll();
 
-        function getAll() 
-        {            
-            ServerService.GetAll().then(function (ServerList) {                
-                vm.ServerList = ServerList;                          
-            });            
+        function getAll()
+        {
+            ServerService.GetAll().then(function (ServerList) {
+                vm.ServerList = ServerList;
+            });
         }
 
-        function newServer() 
-        {            
+        function newServer()
+        {
             creating = true;
             clearElements();
-            //document.getElementById('code').value = getLast();            
+            //document.getElementById('code').value = getLast();
         }
 
-        function createServer() 
+        function createServer()
         {
             vm.Server = null;
             fillServer(false);
@@ -49,15 +49,15 @@
                 });
         }
 
-        function saveServer() 
-        {            
+        function saveServer()
+        {
             if(creating) //insert
             {
                 createServer();
                 creating = false;
             }
             else //update
-            {                
+            {
                 fillServer(true);
                 ServerService.Update(vm.Server)
                     .then(function () {
@@ -70,7 +70,7 @@
             }
         }
 
-        function deleteServer() 
+        function deleteServer()
         {
             if(creating) //erase info
             {
@@ -90,12 +90,12 @@
                     })
                     .catch(function (error) {
                         FlashService.Error(error);
-                    });                
+                    });
             }
         }
 
         function clearElements()
-        {            
+        {
             var clear = document.getElementsByClassName("clear");
             for(let e of clear)
             {
@@ -104,20 +104,20 @@
         }
 
         /*function getLast()
-        {                    
+        {
             return (Number(vm.ServerList[Object.keys(vm.ServerList).length - 1].code) + 1);
         }*/
 
         function getServer(ServerCode)
-        {            
+        {
             for(var key in vm.ServerList)
             {
-                var Server = vm.ServerList[key];                
+                var Server = vm.ServerList[key];
                 if(Server._id == ServerCode)
-                {                    
+                {
                     vm.Server = Server;
                     fillElements();
-                    creating = false;                    
+                    creating = false;
                 }
             }
         }
@@ -125,7 +125,7 @@
         function fillElements()
         {
             document.getElementById('ip').value = vm.Server.ip;
-            document.getElementById('host').value = vm.Server.host;            
+            document.getElementById('host').value = vm.Server.host;
         }
 
         function fillServer(withId)

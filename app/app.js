@@ -38,6 +38,13 @@
                 controller: 'Users.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'users' }
+            })
+            .state('command', {
+                url: '/command',
+                templateUrl: 'command/index.html',
+                controller: 'Command.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'command' }
             });
     }
 

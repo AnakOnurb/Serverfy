@@ -16,8 +16,9 @@
                 </div>
                 <div id="navLinks">
                     <div class="navButton" ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Dashboard</a></div>
-                    <div class="navButton" ng-class="{active: activeTab === 'server'}"><a ui-sref="server">Server</a></div>                   
+                    <div class="navButton" ng-class="{active: activeTab === 'server'}"><a ui-sref="server">Server</a></div>
                     <div class="navButton" ng-class="{active: activeTab === 'users'}"><a ui-sref="users">Employees</a></div>
+                    <div class="navButton" ng-class="{active: activeTab === 'command'}"><a ui-sref="command">Commands</a></div>
                 </div>
                 <div id="navAccount">
                     <div class="dropdownContainer">
@@ -27,8 +28,8 @@
                             <span><a href="/login" target="_self">Logout</a></span>
                         </div>
                     </div>
-                </div>                
-            </nav>        
+                </div>
+            </nav>
         </header>
 
         <!-- main -->
@@ -36,13 +37,13 @@
             <div id="flashmessage" class="flash-message" ng-if="flash">
                 <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
             </div>
-            <section ui-view>                
-            </section>        
+            <section ui-view>
+            </section>
         </main>
 
         <!-- footer -->
         <footer>
-            
+
         </footer>
 
         <!-- external scripts -->
@@ -54,11 +55,13 @@
         <script src="app.js"></script>
         <script src="app-services/user.service.js"></script>
         <script src="app-services/server.service.js"></script>
+        <script src="app-services/command.service.js"></script>
         <script src="app-services/flash.service.js"></script>
         <script src="home/index.controller.js"></script>
         <script src="account/index.controller.js"></script>
         <script src="server/index.controller.js"></script>
-        <script src="users/index.controller.js"></script>        
+        <script src="users/index.controller.js"></script>
+        <script src="command/index.controller.js"></script>      
     </body>
 </html>
 
