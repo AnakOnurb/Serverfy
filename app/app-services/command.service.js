@@ -12,6 +12,7 @@
         service.GetToken = GetToken;
         service.GetUserId = GetUserId;
         service.GetVersion = GetVersion;
+        service.GetStatus = GetStatus;
 
         return service;
 
