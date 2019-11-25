@@ -10,6 +10,7 @@ db.bind('server');
 var service = {};
 
 service.getVersion = getVersion;
+service.getStatus = getStatus;
 
 module.exports = service;
 
@@ -18,7 +19,24 @@ function getVersion() {
 
         if (1==1) {
             deferred.resolve("Version 1.2");
-        } 
+        }
+        else {
+            deferred.resolve();
+        }
+
+    return deferred.promise;
+}
+
+function getStatus(ip) {
+    var deferred = Q.defer();
+
+        if (1==1) {
+            var x = Math.floor((Math.random() * 100) + 1);
+            if(x < 80)
+              deferred.resolve("1");
+            else
+              deferred.resolve("0");
+        }
         else {
             deferred.resolve();
         }
