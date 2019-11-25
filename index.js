@@ -1,11 +1,15 @@
 const TelegramBot = require('./telegram');
+var request = require('request');
+var config = require('./config.json');
 
 // replace the value below with the Telegram token you receive from @BotFather
 // ServerfyBOT token
-const token = '711197504:AAE9lt1B1K0o8x3Iu9PMISPAoAxCD-nmeTg';
-
+const botToken = '711197504:AAE9lt1B1K0o8x3Iu9PMISPAoAxCD-nmeTg';
 // Create a bot that uses 'polling' to fetch new updates
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(botToken, {polling: true});
+
+var userToken = "";
+var userId = "";
 
 // Matches "/echo [whatever]", used to get regex expressions
 bot.onText(/\/echo (.+)/, (msg, match) => {
@@ -20,20 +24,121 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
   bot.sendMessage(chatId, resp);
 });
 
-// Listen for any kind of message. There are different kinds of messages.
-bot.on('message', (msg) => {
+bot.onText(/\/config/, (msg, match) => {
   const chatId = msg.chat.id;
 
-  // send a message to the chat acknowledging receipt of their message
-  bot.sendMessage(chatId, 'Received your message');
+  var user = msg.from;
+  var telegramID = user.id;
+  var fname = user.first_name;
+  var lname = user.last_name;
+  var uname = user.username;
+
+  asw = "Name: " + fname + " " + lname + "\n";
+  asw += "UserName: @" + uname + "\n";
+  asw += "Telegram ID: " + telegramID;
+
+  bot.sendMessage(chatId, asw);
 });
+
+bot.onText(/\/login/, (msg, match) => {
+  if(msg.text.indexOf(" ") == -1)
+  {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, "Por favor, se identifique utilizando: \n<login> <senha>");
+  }
+});
+
+bot.onText(/\/login (.+)/, (msg, match) => {
+  const chatId = msg.chat.id;
+  if(match[1].indexOf(" ") == -1)
+  {
+    bot.sendMessage(chatId, "Por favor, se identifique utilizando: \n<login> <senha>");
+    return;
+  }
+  else
+  {
+    var username = match[1].split(" ")[0];
+    var password = match[1].split(" ")[1];
+    var form = {username: username,password: password};
+
+    request.post({
+        url: config.apiUrl + '/users/authenticate',
+        form: form,
+        json: true
+    }, function (error, response, body) {
+        if (error) {
+            bot.sendMessage(chatId, "Me desculpe, parece que aconteceu algum erro.");
+            return;
+        }
+        if(!body.token){
+          bot.sendMessage(chatId, "Desculpe, não consigo lembrar de você.");
+          return;
+        }
+
+        // save JWT token and the userId in the session to make it available to the angular app
+        userToken = body.token;
+        userId = body.userId;
+        bot.sendMessage(chatId, "Olá! \nSou assistente pessoal para servidores. \nComo posso ajudá-lo?");
+    });
+  }
+});
+
+bot.onText(/\/getAllServers/, (msg, match) => {
+  const chatId = msg.chat.id;
+
+  if(userToken != "" && userId != "")
+  {
+    var asw = "";
+
+    //$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
+    var form = {"Authorization" : "Bearer " + userToken};
+    request.get({
+        url: config.apiUrl + '/server/',
+        headers: form,
+        json: true
+    }, function (error, response, body) {
+        if (error) {
+            bot.sendMessage(chatId, "Me desculpe, parece que aconteceu algum erro.");
+            return;
+        }
+        if(body.toString().includes("Unauthorized")) {
+          bot.sendMessage(chatId, "Requisição não autorizada, sinto muito");
+          return;
+        }
+
+        for(var s in body)
+        {
+          asw += body[s].ip + " - " + body[s].host + "\n";
+        }
+
+        bot.sendMessage(chatId, asw);
+    });
+  }
+  else {
+    bot.sendMessage(chatId, "Por favor, efetue o login!");
+  }
+});
+
+
+
+// Listen for any kind of message. There are different kinds of messages.
+// bot.on('message', (msg) => {
+//   const chatId = msg.chat.id;
+//
+//   // send a message to the chat acknowledging receipt of their message
+//   bot.sendMessage(chatId, 'Received your message');
+// });
 
 // Listen to text messages only
 bot.on('text', (msg) => {
-  const chatId = msg.chat.id;
+  if(msg.text[0] != "/")
+  {
+    const chatId = msg.chat.id;
 
-  // send a message to the chat acknowledging receipt of their message
-  bot.sendMessage(chatId, 'Received your text message');
+    // send a message to the chat acknowledging receipt of their message
+    bot.sendMessage(chatId, msg.text);
+  }
 });
 
 // Listen to audio messages only
