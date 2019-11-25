@@ -34,7 +34,7 @@
             });
         }
 
-        funtion getServerStatus(ip)
+        function getServerStatus(ip)
         {
           CommandService.getStatus(ip).then(function (Status) {
               if(Status == "1")
