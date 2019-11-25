@@ -6,7 +6,7 @@
         .factory('ServerService', Service);
 
     function Service($http, $q) {
-        var apiURL = "http://localhost:9050/api/server";
+        var apiURL = "https://serverfyapi.azurewebsites.net/api/server";
         var service = {};
 
         service.GetToken = GetToken;
