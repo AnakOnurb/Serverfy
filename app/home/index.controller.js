@@ -27,7 +27,7 @@
         {
             ServerService.GetAll().then(function (ServerList) {
                 //vm.ServerList = ServerList;
-                for(var s of ServerList)
+                for(var s in ServerList)
                 {
                   vm.ServerList.push({'ip':s.ip, 'host':s.host, 'status':getServerStatus(s.ip)});
                 }
