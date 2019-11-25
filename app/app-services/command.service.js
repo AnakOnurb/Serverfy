@@ -29,6 +29,10 @@
             return $http.get(apiURL + '/version').then(handleSuccess, handleError);
         }
 
+        function GetStatus(ip) {
+            return $http.get(apiURL + '/status' + ip).then(handleSuccess, handleError);
+        }
+
         // private functions
 
         function handleSuccess(res) {
