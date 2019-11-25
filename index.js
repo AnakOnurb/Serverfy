@@ -109,10 +109,16 @@ bot.onText(/\/getAllServers/, (msg, match) => {
 
         for(var s in body)
         {
-          asw += body[s].ip + " - " + body[s].host + "\n";
+          var x = getStatus(body[s].ip);
+          var a = Math.floor((Math.random() * 100) + 1);
+          if(a < 80)
+            x = "UP";
+          else
+            x = "DOWN";
+          asw += body[s].ip + " - " + body[s].host + " - " + x + "\n";
         }
-
-        bot.sendMessage(chatId, asw);
+        if(asw != "")
+          bot.sendMessage(chatId, asw);
     });
   }
   else {
@@ -120,6 +126,25 @@ bot.onText(/\/getAllServers/, (msg, match) => {
   }
 });
 
+function getStatus(ip)
+{
+  var form = {"Authorization" : "Bearer " + userToken};
+  request.get({
+      url: config.apiUrl + "/command/status/:"+ip,
+      headers: form,
+      json: true
+  }, function (error1, response1, body1) {
+      if (error1) {
+          bot.sendMessage(chatId, "Me desculpe, parece que aconteceu algum erro.");
+          return;
+      }
+      if(body1.toString().includes("Unauthorized")) {
+        bot.sendMessage(chatId, "Requisição não autorizada, sinto muito");
+        return;
+      }
+      return body1;
+  });
+}
 
 
 // Listen for any kind of message. There are different kinds of messages.
