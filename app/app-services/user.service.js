@@ -6,7 +6,7 @@
         .factory('UserService', Service);
 
     function Service($http, $q) {
-        var apiURL = "https://serverfyapi.azurewebsites.net/api/users";
+        var apiURL = "http://localhost:9050/api/users";
         var service = {};
 
         service.GetToken = GetToken;
@@ -18,7 +18,7 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
-
+        
         return service;
 
         function GetUserId() {
@@ -68,7 +68,7 @@
         function handleError(res) {
             return $q.reject(res.data);
         }
-
+        
     }
 
 })();

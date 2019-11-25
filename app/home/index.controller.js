@@ -5,7 +5,7 @@
         .module('app')
         .controller('Home.IndexController', Controller);
 
-    function Controller(UserService, ServerService) {
+    function Controller(UserService, ServerService, CommandService) {
         var vm = this;
 
         vm.user = null;
@@ -26,8 +26,21 @@
         function getAll()
         {
             ServerService.GetAll().then(function (ServerList) {
-                vm.ServerList = ServerList;
+                //vm.ServerList = ServerList;
+                for(var s of ServerList)
+                {
+                  vm.ServerList.push({'ip':s.ip, 'host':s.host, 'status':getServerStatus(s.ip)});
+                }
             });
         }
-    }
+
+        funtion getServerStatus(ip)
+        {
+          CommandService.getStatus(ip).then(function (Status) {
+              if(Status == "1")
+                return "UP";
+              else
+                return "DOWN";
+          });
+        }
 })();
